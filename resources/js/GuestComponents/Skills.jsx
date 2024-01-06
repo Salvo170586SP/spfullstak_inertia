@@ -1,17 +1,19 @@
-import "./Skills.scss";
 import bootstrap from "../../assets/images/icon/bootstrap.svg";
 import php from "../../assets/images/icon/php.svg";
 import laravel from "../../assets/images/icon/laravel.png";
 import mysql from "../../assets/images/icon/mysql.svg";
 import react from "../../assets/images/icon/react.png";
 import tailwind from "../../assets/images/icon/tailwind.png";
+import { useSelector } from "react-redux";
 
 export function Skills() {
+    const dark = useSelector(((state) => state.dark.value))
+
     return (
         <>
             <section
                 id="competenze"
-                className="text-black py-28"
+                className={`${dark ? 'bg-black text-white' : 'text-black'} py-28`}
             >
                 <div className="container mx-auto px-10 md:px-32">
                     <div className="text-center py-5">

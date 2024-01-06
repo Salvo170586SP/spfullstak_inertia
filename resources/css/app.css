@@ -23,9 +23,7 @@ html{
 }
   
 #guest{
-    /* background-color: #21242b; */
-    background-color: white;
-     overflow: auto;
+    overflow: auto;
     flex: 1;  
     height: 100vh;
 } 
@@ -41,8 +39,6 @@ html{
   }
   
   #up i {
-    background: rgb(61, 67, 48);
-    border-radius: 5px;
     color: white;
     width: 50px;
     height: 50px;
