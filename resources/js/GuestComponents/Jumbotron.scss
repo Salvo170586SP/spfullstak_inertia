@@ -1,0 +1,39 @@
+#jumbotron{
+    background-position: bottom;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    position: relative;
+    
+    .text-jumb{
+        padding-top: 250px;
+       
+    }
+
+    .tex-button-jumb{
+        position: absolute;
+        bottom: 15px;
+    }
+    .arrow-icon {
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+      }
+      
+      .bounce {
+        animation-name: bounce;
+        animation-timing-function: ease;
+      }
+      
+      @keyframes bounce {
+        0% {
+          transform: scale(1, 1) translateY(0);
+        }
+        50% {
+          transform: scale(0.9, 1.1) translateY(-10px);
+        }
+        100% {
+          transform: scale(1, 1) translateY(0);
+        }
+      }
+}

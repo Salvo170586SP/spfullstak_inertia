@@ -1,0 +1,177 @@
+  /* MIEI LAVORI */
+  #miei-lavori {
+    position: relative;
+    padding: 70px 0;
+    background-size: cover;
+    background-color: white;
+  /*   color: white; */
+  }
+
+  /* card project */
+  .card {
+    transition: 0.2s linear;
+    /* box-shadow: 0 0 15px -7px black; */
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+  }
+
+  ////////////////////////////////////////////////////////
+
+  .gridc {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    width: 100%;
+    height: 450px;
+    background-color: white;
+    transition: 1s;
+  }
+
+  .gridc .box {
+    position: relative;
+    box-shadow: inset 0 0 50px -10px white;
+ /*    background: var(--img) black; */
+    background-position: top center;
+    background-size: cover;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    filter: grayscale(0) brightness(1);
+  }
+
+  .gridc:hover .box {
+    filter: grayscale(1);
+  }
+
+  .gridc .box:hover {
+    filter: grayscale(0) brightness(1);
+  }
+
+  .gridc .box::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(white, transparent, transparent, transparent, white);
+  }
+
+  .gridc:has(.one:hover) {
+    grid-template-columns: 6fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
+  }
+
+  .gridc:has(.two:hover) {
+    grid-template-columns: 0.5fr 5fr 0.5fr 0.5fr 0.5fr 0.5fr;
+  }
+
+  .gridc:has(.three:hover) {
+    grid-template-columns: 0.5fr 0.5fr 5fr 0.5fr 0.5fr 0.5fr;
+  }
+
+  .gridc:has(.four:hover) {
+    grid-template-columns: 0.5fr 0.5fr 0.5fr 5fr 0.5fr 0.5fr;
+  }
+
+  .gridc:has(.five:hover) {
+    grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr 5fr 0.5fr;
+  }
+
+  .gridc:has(.six:hover) {
+    grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 5fr;
+  }
+
+  /*   .box:nth-child(even){
+    transform: translateY(30px);
+  }
+  .box:nth-child(odd){
+    transform: translateY(-30px);
+  } */
+
+  .gridc .box::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 50px;
+    bottom: -100px;
+    background-color: rgba(37, 37, 37, 0.683);
+    color: #fff;
+    font-size: 1em;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 3px;
+    box-shadow: white 0 0 15px -6px;
+    white-space: no-wrap;
+    text-transform: uppercase;
+    transition: .5s;
+    opacity: 0;
+    transition-delay: 0s;
+  }
+
+  .gridc .box:hover::after {
+    opacity: 1;
+    bottom: 20px;
+    transition-delay: 0.25s;
+  }
+
+  .btn-lavori {
+    margin-top: 50px;
+    border: 1px solid white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: inline-block;
+  }
+
+  .btn-lavori:hover {
+    border-color: rgb(184, 184, 203);
+    transform: scale(0.9);
+    transition: 0.1s;
+  }
+
+  @media screen and (max-width: 768px) {
+    .gridc {
+      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: none;
+      height: 800px;
+    }
+
+    .gridc:has(.one:hover) {
+      grid-template-columns: none;
+      grid-template-rows: 6fr 1fr 1fr 1fr 1fr 1fr;
+    }
+
+    .gridc:has(.two:hover) {
+      grid-template-columns: none;
+      grid-template-rows: 1fr 5fr 1fr 1fr 1fr 1fr;
+    }
+
+    .gridc:has(.three:hover) {
+      grid-template-columns: none;
+      grid-template-rows: 1fr 1fr 5fr 1fr 1fr 1fr;
+    }
+
+    .gridc:has(.four:hover) {
+      grid-template-columns: none;
+      grid-template-rows: 1fr 1fr 1fr 5fr 1fr 1fr;
+    }
+
+    .gridc:has(.five:hover) {
+      grid-template-columns: none;
+      grid-template-rows: 1fr 1fr 1fr 1fr 5fr 1fr;
+    }
+
+    .gridc:has(.six:hover) {
+      grid-template-columns: none;
+      grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 5fr;
+    }
+
+    .gridc .box::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(transparent, transparent, transparent, black);
+    }
+  }

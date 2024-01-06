@@ -1,0 +1,20 @@
+#biography{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    filter: brightness(0.8);
+    position: relative;
+    min-height: 100vh;
+    
+    .gradient {
+       position: absolute;
+       bottom: 0;
+       left: 0;
+       right: 0;
+       height: 100vh;  
+      //  height: 240px;  
+      //  background: linear-gradient(to top, rgba(22, 24, 29, 1), rgba(22, 24, 29, 0));
+       background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+     }
+ }
