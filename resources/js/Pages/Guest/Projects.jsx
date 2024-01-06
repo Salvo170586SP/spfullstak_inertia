@@ -1,11 +1,13 @@
 import React from "react";
 import Guest from "@/Layouts/GuestLayout";
+import { useSelector } from "react-redux";
  
 export default function Projects({ projects }) {
- 
+    const dark = useSelector(((state) => state.dark.value))
+
     return (
         <Guest>
-            <section id="projects" className="text-black ">
+            <section id="projects" className={` ${dark ? 'text-white' : 'text-black'}`}>
                 <div className="container mx-auto py-32 px-10 md:px-32">
                     <div className="text-start">
                         <h2 className="text-4xl">PROGETTI</h2>
@@ -22,10 +24,10 @@ export default function Projects({ projects }) {
                                 <a
                                     key={id}
                                     target="_blank"
-                                    className="relative group  rounded-lg  m-1 cursor-pointer"
+                                    className="relative group     m-1 cursor-pointer"
                                     href={project.project_url}
                                 >
-                                    <figure className="object-contain  md:w-full w-100 h-60	hover:rounded-lg overflow-hidden shadow-xl hover:shadow  transition hover:scale-95 ">
+                                    <figure className="object-contain  md:w-full w-100 h-60	 rounded-3xl overflow-hidden shadow-xl hover:shadow  transition hover:scale-95 ">
                                         <img
                                             src={
                                                 "http://127.0.0.1:8000/storage/" +

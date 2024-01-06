@@ -1,36 +1,30 @@
 import React from "react";
 import Guest from "@/Layouts/GuestLayout";
+import { useSelector } from "react-redux";
 
 export default function Cv({ files }) {
+    const dark = useSelector((state) => state.dark.value);
+
     return (
         <Guest>
-            <section id="cv" className=" text-black  pt-32 ">
+            <section
+                id="cv"
+                className={`${dark ? "text-white" : "text-black"}    pt-32  `}
+            >
                 <div className="container  px-10 md:px-32   mx-auto">
                     <div className="text-start mb-10">
                         <h1 className="text-4xl ">Curriculum Vitae</h1>
                         <span>& certificati conseguiti</span>
                     </div>
 
-                    <div className="grid  sm:grid-rows md:grid-cols-3 mt-20 gap-5 align-center justify-center">
+                    <div className="   mt-20   ">
                         <div>
                             <p>
-                                Nella mia esperienza lavorativa ho conseguito
-                                solide basi sulla gestione dati lato back-end
-                                con Laravel assieme al mio team d'ufficio.
-                            </p>
-                        </div>
-                        <div>
-                            <p>
-                                Nella mia esperienza lavorativo/formativa ho
-                                conseguito solide basi sulla gestione dati lato
-                                back-end con Laravel,
-                            </p>
-                        </div>
-                        <div>
-                            <p>
-                                Nella mia esperienza lavorativo/formativa ho
-                                conseguito solide basi sulla gestione dati lato
-                                back-end con Laravel,
+                                Benvenuto nella sezione dedicata alle
+                                candidature e alle competenze professionali. Qui
+                                troverai il mio curriculum vitae,
+                                attestati e lettera di presentazione, per esplorare le mie esperienze
+                                e le qualifiche conseguite.
                             </p>
                         </div>
                     </div>
@@ -49,11 +43,12 @@ export default function Cv({ files }) {
                                             }
                                             width={350}
                                             alt={file.title_file}
-                                            className="border  rounded-lg shadow-md hover:shadow-xl"
+                                            className="border  rounded-3xl shadow-md hover:shadow-xl"
                                         />
                                         <a
                                             href={`/cv-page/download/${file.id}`}
-                                            className="absolute bottom-10 transition text-white bg-opacity-80 bg-gray-800  shadow px-5 py-1 rounded-r-lg ">    
+                                            className="absolute bottom-10 transition text-white bg-opacity-80 bg-gray-800  shadow px-5 py-1 rounded-r-lg "
+                                        >
                                             <small>
                                                 <i className="fa fa-solid fa-download"></i>
                                                 scarica

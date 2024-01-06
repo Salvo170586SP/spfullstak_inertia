@@ -1,12 +1,15 @@
+import { useSelector } from "react-redux";
 import imgJumb from "../../assets/images/SL-011719-17920-65.jpg";
 import "./Jumbotron.scss";
 
 export function Jumbotron() {
+    const dark = useSelector(((state) => state.dark.value))
+
     return (
         <section
             id="jumbotron"
             className="h-screen text-black "
-            style={{ backgroundImage: `url(${imgJumb})` }}
+            style={{ backgroundImage: `url(${imgJumb})`, filter: `invert(${dark ? '1':'0' })` }}
         >
             <div className="flex justify-center text-jumb ">
                 <div className=" flex flex-col items-center">

@@ -1,12 +1,13 @@
 import { Link } from "@inertiajs/react";
 import logo from "../../assets/images/icon/logo2.png";
+import { useSelector } from "react-redux";
 
 export function Footer() {
+    const dark = useSelector(((state) => state.dark.value))
+
     return (
         <footer
-            style={{ backgroundColor: "#0000" }}
-            /* style={{ backgroundColor: "#131418" }} */
-            className="text-black p-5 border-t"
+            className={`${dark ? 'text-white border-0 bg-gray-950' : 'text-black  border-r-0 border-l-0  border-t'}  p-5 `}
         >
             <div className="container mx-auto  py-10">
                 <div className="md:grid grid-cols-2  items- sm:flex">

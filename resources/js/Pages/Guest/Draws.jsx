@@ -1,10 +1,13 @@
 import React from "react";
 import Guest from "@/Layouts/GuestLayout";
+import { useSelector } from "react-redux";
 
 export default function Draws({ draws }) {
+    const dark = useSelector(((state) => state.dark.value))
+
     return (
         <Guest>
-            <section id="draws" className="text-black   pt-32 ">
+            <section id="draws" className={` ${dark ? 'text-white' : 'text-black'}    pt-32 `}>
                 <div className="container px-10 md:px-32  mx-auto">
                     <div className="text-start">
                     <h2 className="text-4xl">DISEGNI</h2>
@@ -19,7 +22,7 @@ export default function Draws({ draws }) {
                                     target="_blank"
                                     className="relative group m-1 cursor-pointer"
                                 >
-                                    <figure className="object-contain text-black h-80 hover:rounded-lg overflow-hidden shadow-xl transition hover:scale-95 ">
+                                    <figure className="object-contain text-black h-80 rounded-3xl overflow-hidden shadow-xl transition hover:scale-95 ">
                                         <img
                                             src={"/storage/" + draw.draw_img}
                                             alt={draw.draw_title}

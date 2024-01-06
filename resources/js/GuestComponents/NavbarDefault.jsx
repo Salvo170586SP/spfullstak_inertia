@@ -7,9 +7,13 @@ import {
     IconButton,
 } from "@material-tailwind/react";
 import { Link } from "@inertiajs/react";
+import { isDark } from "@/redux/darkSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export function NavbarDefault() {
     const [openNav, setOpenNav] = React.useState(false);
+    const dark = useSelector((state) => state.dark.value);
+    const dispatch = useDispatch();
 
     React.useEffect(() => {
         window.addEventListener(
@@ -24,8 +28,10 @@ export function NavbarDefault() {
                 as="li"
                 variant="small"
                 color="blue-gray"
-                className="hover:bg-gray-200
-                flex items-center gap-x-2 p-1 font-medium  rounded-lg px-2 cursor-pointer"
+                className={`${
+                    dark ? "hover:bg-gray-800 " : "hover:bg-gray-200"
+                }  
+                flex items-center gap-x-2 p-1 font-medium  rounded-lg px-2 cursor-pointer`}
             >
                 <Link href="/" className="flex items-center">
                     <svg
@@ -47,8 +53,10 @@ export function NavbarDefault() {
                 as="li"
                 variant="small"
                 color="blue-gray"
-                className="hover:bg-gray-200
-                flex items-center gap-x-2 p-1 font-medium  rounded-lg px-2 cursor-pointer"
+                className={`${
+                    dark ? "hover:bg-gray-800 " : "hover:bg-gray-200"
+                }  
+                flex items-center gap-x-2 p-1 font-medium  rounded-lg px-2 cursor-pointer`}
             >
                 <Link href="/about-page" className="flex items-center">
                     <svg
@@ -72,8 +80,10 @@ export function NavbarDefault() {
                 as="li"
                 variant="small"
                 color="blue-gray"
-                className="hover:bg-gray-200
-                flex items-center gap-x-2 p-1 font-medium  rounded-lg px-2 cursor-pointer"
+                className={`${
+                    dark ? "hover:bg-gray-800 " : "hover:bg-gray-200"
+                }  
+                flex items-center gap-x-2 p-1 font-medium  rounded-lg px-2 cursor-pointer`}
             >
                 <Link href={"/projects-page"} className="flex items-center">
                     <svg
@@ -95,8 +105,10 @@ export function NavbarDefault() {
                 as="li"
                 variant="small"
                 color="blue-gray"
-                className="hover:bg-gray-200
-                 flex items-center gap-x-2 p-1 font-medium  rounded-lg px-2 cursor-pointer"
+                className={`${
+                    dark ? "hover:bg-gray-800 " : "hover:bg-gray-200"
+                }  
+                flex items-center gap-x-2 p-1 font-medium  rounded-lg px-2 cursor-pointer`}
             >
                 <Link href={"/draws-page"} className="flex items-center">
                     <i className="fa-solid fa-image text-slate-400"></i>
@@ -107,8 +119,10 @@ export function NavbarDefault() {
                 as="li"
                 variant="small"
                 color="blue-gray"
-                className="hover:bg-gray-200
-                flex items-center gap-x-2 p-1 font-medium  rounded-lg px-2 cursor-pointer"
+                className={`${
+                    dark ? "hover:bg-gray-800 " : "hover:bg-gray-200"
+                }  
+                flex items-center gap-x-2 p-1 font-medium  rounded-lg px-2 cursor-pointer`}
             >
                 <Link href={"/cv-page"} className="flex items-center">
                     <svg
@@ -128,13 +142,65 @@ export function NavbarDefault() {
                     <span className="mx-2">CV</span>
                 </Link>
             </Typography>
+            <Typography
+                as="li"
+                variant="small"
+                color="blue-gray"
+                className={`${
+                    dark ? "hover:bg-gray-800 " : "hover:bg-gray-200"
+                }  
+                flex items-center gap-x-2 p-1 font-medium  rounded-lg px-2 cursor-pointer`}
+            >
+                <button
+                    className="flex items-center"
+                    onClick={() => dispatch(isDark())}
+                >
+                    <span className=" ">
+                        {dark ? (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="w-5 h-5"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"
+                                />
+                            </svg>
+                        ) : (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="w-5 h-5"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                                />
+                            </svg>
+                        )}
+                    </span>
+                </button>
+            </Typography>
         </ul>
     );
 
     return (
         <Navbar
-            className="text-black bg-white/60 rounded-none  
-            mx-auto max-w-screen-xxl px-4 py-2 lg:px-8 lg:py-4 fixed shadow-none  z-10 backdrop-blur-md w-full border-bottom"
+            className={`${
+                dark
+                    ? "text-white bg-black/60 border-0"
+                    : "text-black bg-white/60  border-r-0 border-l-0 border-t-0 border-b border-slate-200  "
+            }  rounded-none  
+            mx-auto max-w-screen-xxl px-4 py-2 lg:px-8 lg:py-4 fixed shadow-none  z-10 backdrop-blur-md w-full `}
         >
             <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
                 <Typography className="mr-4 cursor-pointer py-1.5 font-medium flex rounded-lg px-2 items-center">

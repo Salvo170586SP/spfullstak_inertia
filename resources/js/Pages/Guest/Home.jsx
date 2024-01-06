@@ -56,7 +56,7 @@ function Home() {
             <MyWork />
             <div id="up">
                 <a className="link-up" href="#">
-                    <i className="fa-solid fa-chevron-up fa-2x arrow-icon"></i>
+                    <i className="fa-solid fa-chevron-up fa-2x bg-slate-500 rounded-3xl arrow-icon"></i>
                 </a>
             </div>
         </Guest>
