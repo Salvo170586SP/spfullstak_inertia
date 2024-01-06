@@ -12,6 +12,7 @@ export default function Draws({ draws }) {
                     <div className="text-start">
                     <h2 className="text-4xl">DISEGNI</h2>
                     <h3>Creo ritratti su richiesta. Disegni realizzati con grafite e carboncino.</h3>
+                    <small>* clicca l'immagine per vedere i dettagli</small>
                     </div>
                     <div className="grid sm:grid-rows md:grid-cols-4  py-10   align-center justify-center">
                         {draws.map((draw, id) => {
