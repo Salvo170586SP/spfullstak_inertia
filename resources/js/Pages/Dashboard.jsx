@@ -14,7 +14,7 @@ export default function Dashboard({ auth }) {
             <Head title="Dashboard" />
 
             <div className="bg-white dark:bg-gray-800  shadow-sm w-full py-5">
-                <div className="container max-w-7xl mx-auto">
+                <div className="container max-w-7xl px-10 mx-auto flex flex-wrap gap-2">
                     <Link
                         href={`/biograpies`} 
                         className="px-5 py-2 sm:px-6 lg:px-7 me-3 text-gray-900 rounded dark:text-gray-100 bg-slate-500 text-white"

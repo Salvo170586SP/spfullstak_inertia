@@ -1,12 +1,17 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, router, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { Button, FileInput, Label, Modal } from "flowbite-react";
 import { Table } from "flowbite-react";
 import TextInput from "@/Components/TextInput";
+import { useRef } from "react";
+import InputError from "@/Components/InputError";
 
 export default function Index({ auth, projects, pagination }) {
+    const projectTitle = useRef();
     const [openModal, setOpenModal] = useState(false);
+    const { errors, flash } = usePage().props;
+
     const { data, setData } = useForm({
         project_title: "",
         project_img: "",
@@ -16,8 +21,11 @@ export default function Index({ auth, projects, pagination }) {
     /* CREATE */
     const handleSubmit = (e) => {
         e.preventDefault();
-        router.post(route("projects.store"), data);
-        setOpenModal(false);
+        router.post(route("projects.store"), data, {
+            onSuccess: () => setOpenModal(false),
+            onError: () => projectTitle.current.focus(),
+        });
+        /*   setOpenModal(false); */
     };
 
     const handleChange = (e) => {
@@ -117,11 +125,15 @@ export default function Index({ auth, projects, pagination }) {
                                             <TextInput
                                                 id="titolo"
                                                 type="text"
-                                                required
                                                 className="w-full"
                                                 name="project_title"
                                                 onChange={handleChange}
                                                 value={data.project_title}
+                                                ref={projectTitle}
+                                            />
+                                            <InputError
+                                                message={errors.projectTitle}
+                                                className="mt-2"
                                             />
                                         </div>
                                         <div className="w-full my-5">
@@ -135,7 +147,6 @@ export default function Index({ auth, projects, pagination }) {
                                                 className="w-full"
                                                 id="url"
                                                 type="text"
-                                                required
                                                 name="project_url"
                                                 onChange={handleChange}
                                                 value={data.project_url}
@@ -160,6 +171,13 @@ export default function Index({ auth, projects, pagination }) {
                     </div>
 
                     <div className="overflow-x-auto mt-5">
+                    <div className="h-[50px] w-full my-2">
+                            {flash.message && (
+                                <div className="text-white bg-slate-500 dark:bg-slate-600 w-full py-3 px-4 rounded-xl">
+                                    {flash.message}
+                                </div>
+                            )}
+                        </div>
                         {projects.length > 0 ? (
                             <>
                                 <Table hoverable>
@@ -332,15 +350,14 @@ export default function Index({ auth, projects, pagination }) {
                                     </Table.Body>
                                 </Table>
                                 <div className="flex justify-between items-center w-full py-3">
-                                    <div className="text-white">
+                                    <div className="dark:text-white">
                                         Pagina {pagination.current_page} di{" "}
                                         {pagination.last_page}. Mostrando{" "}
                                         {pagination.from}-{pagination.to} di{" "}
                                         {pagination.total} elementi.
                                     </div>
                                     <div className="p-3">
-                                        { 
-                                        Array.from(
+                                        {Array.from(
                                             { length: pagination.last_page },
                                             (_, index) => (
                                                 <Link
@@ -359,7 +376,7 @@ export default function Index({ auth, projects, pagination }) {
                                                     {index + 1}
                                                 </Link>
                                             )
-                                        )  }
+                                        )}
                                     </div>
                                 </div>
                             </>

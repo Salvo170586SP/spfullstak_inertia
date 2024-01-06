@@ -1,14 +1,18 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, router } from "@inertiajs/react";
+import { Head, Link, router, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { Button, Modal } from "flowbite-react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useEffect } from "react";
 
 export default function Index({ auth, biograpies }) {
     const [description, setDescription] = useState("");
     const [openModal, setOpenModal] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
+    const { flash } = usePage().props;
+
+   
 
     /* CREATE */
     const handleSubmit = (e) => {
@@ -49,13 +53,20 @@ export default function Index({ auth, biograpies }) {
             <div className="py-12 max-w-7xl mx-auto ">
                 <div className="container mx-auto py-4">
                     <div className="flex">
+                        <div className="h-[50px] w-full">
+                            {flash.message && (
+                                <div className="text-white bg-slate-500 dark:bg-slate-600 w-full py-3 px-4 rounded-xl">
+                                    {flash.message}
+                                </div>
+                            )}
+                        </div>
                         {biograpies.length <= 0 ? (
                             <Button onClick={() => setOpenModal(true)}>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
-                                     strokeWidth="1.5"
+                                    strokeWidth="1.5"
                                     stroke="currentColor"
                                     className="w-6 h-6"
                                 >
@@ -80,12 +91,12 @@ export default function Index({ auth, biograpies }) {
                                         onSubmit={handleSubmit}
                                         className="rounded overflow-hidden tecx-black"
                                     >
-                                         <CKEditor
-                                editor={ClassicEditor}
-                                data={description}
-                                onChange={handleEditorChange}
-                            />
-                                      {/*   <textarea
+                                        <CKEditor
+                                            editor={ClassicEditor}
+                                            data={description}
+                                            onChange={handleEditorChange}
+                                        />
+                                        {/*   <textarea
                                             id="editor"
                                             required
                                             name="description"
@@ -134,7 +145,7 @@ export default function Index({ auth, biograpies }) {
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             fill="none"
                                                             viewBox="0 0 24 24"
-                                                             strokeWidth="1.5"
+                                                            strokeWidth="1.5"
                                                             stroke="currentColor"
                                                             className="w-6 h-6"
                                                         >
@@ -161,7 +172,7 @@ export default function Index({ auth, biograpies }) {
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             fill="none"
                                                             viewBox="0 0 24 24"
-                                                             strokeWidth="1.5"
+                                                            strokeWidth="1.5"
                                                             stroke="currentColor"
                                                             className="w-6 h-6"
                                                         >
@@ -225,7 +236,8 @@ export default function Index({ auth, biograpies }) {
                                                     </Modal>
                                                 </div>
 
-                                                <div className="mt-10"
+                                                <div
+                                                    className="mt-10"
                                                     dangerouslySetInnerHTML={{
                                                         __html: biograpy.description,
                                                     }}

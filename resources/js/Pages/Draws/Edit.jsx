@@ -1,14 +1,21 @@
+import InputError from "@/Components/InputError";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, router, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import { FileInput, Label, TextInput, Button } from "flowbite-react";
+import { useRef } from "react";
 import { useEffect } from "react";
 
 export default function Edit({ auth, draw }) {
+    const drawTitle = useRef();
+    const { errors } = usePage().props;
+
     const { data, setData } = useForm({
         draw_title: "",
         draw_img: "",
         draw_url: "",
     });
+
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -24,7 +31,9 @@ export default function Edit({ auth, draw }) {
     }, []);
 
     const handleEdit = (id) => {
-        router.post(route("draws.update", id), data);
+        router.post(route("draws.update", id), data, {
+            onError: () => drawTitle.current.focus(),
+        });
     };
 
     return (
@@ -71,12 +80,16 @@ export default function Edit({ auth, draw }) {
                             <TextInput
                                 id="titolo"
                                 type="text"
-                                required
-                                className="w-full"
+                                 className="w-full"
                                 name="draw_title"
                                 onChange={handleInputChange}
                                 value={data.draw_title}
+                                ref={drawTitle}
                             />
+                             <InputError
+                                                message={errors.draw_title}
+                                                className="mt-2"
+                                            />
                         </div>
                         <div className="w-full my-5">
                             <div className="mb-2 block">
@@ -86,10 +99,10 @@ export default function Edit({ auth, draw }) {
                                 className="w-full"
                                 id="url"
                                 type="text"
-                                required
                                 name="draw_url"
                                 onChange={handleInputChange}
                                 value={data.draw_url}
+                                
                             />
                         </div>
 

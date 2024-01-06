@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, router, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { Button, FileInput, Label, Modal } from "flowbite-react";
 import { Table } from "flowbite-react";
@@ -7,6 +7,8 @@ import TextInput from "@/Components/TextInput";
 
 export default function Index({ auth, files }) {
     const [openModal, setOpenModal] = useState(false);
+    const { flash } = usePage().props;
+
     const { data, setData } = useForm({
         title_file: "",
         url_file: "",
@@ -123,7 +125,6 @@ export default function Index({ auth, files }) {
                                                 value={data.title_file}
                                             />
                                         </div>
-                                        
 
                                         <Modal.Footer>
                                             <Button type="submit">invia</Button>
@@ -143,12 +144,19 @@ export default function Index({ auth, files }) {
                     </div>
 
                     <div className="overflow-x-auto mt-5">
+                        <div className="h-[50px] w-full my-2">
+                            {flash.message && (
+                                <div className="text-white bg-slate-500 dark:bg-slate-600 w-full py-3 px-4 rounded-xl">
+                                    {flash.message}
+                                </div>
+                            )}
+                        </div>
                         {files.length > 0 ? (
                             <Table hoverable>
                                 <Table.Head>
                                     <Table.HeadCell>Img</Table.HeadCell>
                                     <Table.HeadCell>Titolo</Table.HeadCell>
-                                     <Table.HeadCell></Table.HeadCell>
+                                    <Table.HeadCell></Table.HeadCell>
                                 </Table.Head>
                                 <Table.Body className="divide-y">
                                     {files.map((file) => {
@@ -176,7 +184,7 @@ export default function Index({ auth, files }) {
                                                 </Table.Cell>
                                                 <Table.Cell>
                                                     <div className="flex justify-end">
-                                                         <Link
+                                                        <Link
                                                             className="bg-blue-600 flex items-center mx-3 hover:bg-blue-500 rounded-lg px-4 py-2 text-white"
                                                             href={`/files/edit/${file.id}`}
                                                         >

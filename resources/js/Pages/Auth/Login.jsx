@@ -30,11 +30,11 @@ export default function Login({ status, canResetPassword }) {
         <GuestLayout>
             <Head title="Log in" />
 
-            {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
+            {status && <div className="mb-4 font-medium text-sm text-green-600   ">{status}</div>}
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className='container mx-auto p-32 mt-32'>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="email" value="Email"  />
 
                     <TextInput
                         id="email"

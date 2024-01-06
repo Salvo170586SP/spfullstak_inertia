@@ -10,6 +10,7 @@ import { useRef } from "react";
 export default function Index({ auth, draws, pagination }) {
     const drawTitle = useRef();
     const { errors } = usePage().props;
+    const { flash } = usePage().props;
     const [openModal, setOpenModal] = useState(false);
     const { data, setData } = useForm({
         draw_title: "",
@@ -170,6 +171,14 @@ export default function Index({ auth, draws, pagination }) {
                     </div>
 
                     <div className="overflow-x-auto mt-5">
+                        <div className="h-[50px] w-full my-2">
+                            {flash.message && (
+                                <div className="text-white bg-slate-500 dark:bg-slate-600 w-full py-3 px-4 rounded-xl">
+                                    {flash.message}
+                                </div>
+                            )}
+                        </div>
+
                         {draws.length > 0 ? (
                             <>
                                 <Table hoverable>
@@ -342,7 +351,7 @@ export default function Index({ auth, draws, pagination }) {
                                     </Table.Body>
                                 </Table>
                                 <div className="flex justify-between items-center w-full py-3">
-                                    <div className="text-white">
+                                    <div className=" dark:text-white">
                                         Pagina {pagination.current_page} di{" "}
                                         {pagination.last_page}. Mostrando{" "}
                                         {pagination.from}-{pagination.to} di{" "}

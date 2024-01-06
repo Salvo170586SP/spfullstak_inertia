@@ -1,14 +1,19 @@
+import InputError from "@/Components/InputError";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, router, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import { FileInput, Label, TextInput, Button } from "flowbite-react";
+import { useRef } from "react";
 import { useEffect } from "react";
 
 export default function Edit({ auth, project }) {
+    const projectTitle = useRef();
+    const { errors } = usePage().props;
     const { data, setData } = useForm({
         project_title: "",
         project_img: "",
         project_url: "",
     });
+    console.log(message);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -25,7 +30,9 @@ export default function Edit({ auth, project }) {
 
     const handleEdit = (e) => {
         e.preventDefault();
-        router.post(route("projects.update", project.id), data);
+        router.post(route("projects.update", project.id), data, {
+            onError: () => projectTitle.current.focus(),
+        });
     };
 
     return (
@@ -91,6 +98,11 @@ export default function Edit({ auth, project }) {
                                 name="project_url"
                                 value={data.project_url}
                                 onChange={handleInputChange}
+                                ref={projectTitle}
+                            />
+                            <InputError
+                                message={errors.projectTitle}
+                                className="mt-2"
                             />
                         </div>
 

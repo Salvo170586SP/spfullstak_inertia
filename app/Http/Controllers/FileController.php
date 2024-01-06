@@ -32,18 +32,22 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        $file = new File();
-        $file->title_file = $request->title_file;
-        $file->user_id = Auth::id();
+        try {
+            $file = new File();
+            $file->title_file = $request->title_file;
+            $file->user_id = Auth::id();
 
-        if (array_key_exists('url_file', $request->all())) {
-            $url_file = Storage::put('/file_imgs', $request['url_file']);
-            $file->url_file = $url_file;
+            if (array_key_exists('url_file', $request->all())) {
+                $url_file = Storage::put('/file_imgs', $request['url_file']);
+                $file->url_file = $url_file;
+            }
+
+            $file->save();
+
+            return back()->with('message', 'Contenuto aggiunto');
+        } catch (Exception $e) {
+            return back()->with('message', 'Qualcosa è andato storto');
         }
-
-        $file->save();
-
-        return back()->with('message', 'Contenuto aggiunto');
     }
 
 
@@ -52,7 +56,9 @@ class FileController extends Controller
      */
     public function edit(File $file)
     {
-        return Inertia::render('Files/Edit', compact('file'));
+        if ($file->user_id == Auth::id()) {
+            return Inertia::render('Files/Edit', compact('file'));
+        }
     }
 
     /**
@@ -60,18 +66,25 @@ class FileController extends Controller
      */
     public function update(Request $request, File $file)
     {
-        if ($request->hasfile('url_file')) {
-            Storage::delete($file->url_file);
+        try {
+            if ($file->user_id == Auth::id()) {
 
-            $url_img = Storage::put('/file_imgs', $request->file('url_file'));
-            $file->url_file = $url_img;
+                if ($request->hasfile('url_file')) {
+                    Storage::delete($file->url_file);
+
+                    $url_img = Storage::put('/file_imgs', $request->file('url_file'));
+                    $file->url_file = $url_img;
+                }
+
+                $file->update([
+                    'title_file' => $request->title_file
+                ]);
+
+                return to_route('files.index')->with('message', 'Contenuto aggiornato');
+            }
+        } catch (Exception $e) {
+            return back()->with('message', 'Qualcosa è andato storto');
         }
-
-        $file->update([
-            'title_file' => $request->title_file
-        ]);
-        
-        return to_route('files.index');
     }
 
     /**
@@ -79,25 +92,31 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        if ($file->url_file) {
-            Storage::delete($file->url_file);
+        try {
+            if ($file->user_id == Auth::id()) {
+                
+                if ($file->url_file) {
+                    Storage::delete($file->url_file);
+                }
+
+                $file->delete();
+
+
+                return back()->with('message', 'Contenuto eliminato');
+            }
+        } catch (Exception $e) {
+            return back()->with('message', 'Qualcosa è andato storto');
         }
-
-        $file->delete();
-
-
-        return back()->with('message', 'Contenuto eliminato');
     }
 
-     public function downloadFile(File $file)
+    public function downloadFile(File $file)
     {
-       /*  dd('qui'); */
         $filePath = public_path('storage/' . $file->url_file);
 
         $ext = pathinfo($filePath, PATHINFO_EXTENSION);
-       /*  $fileName = $file->title_file . '.jpg'; */
+        /*  $fileName = $file->title_file . '.jpg'; */
         $fileName = $file->title_file . '.' . $ext;
 
         return response()->download($filePath, $fileName);
-     }
+    }
 }

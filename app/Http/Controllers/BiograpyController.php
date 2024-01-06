@@ -22,24 +22,21 @@ class BiograpyController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $biograpy = new Biograpy();
-        $biograpy->description = $request->description;
-        $biograpy->user_id =  Auth::id();
-        $biograpy->save();
+        try {
+            
+            $biograpy = new Biograpy();
+            $biograpy->description = $request->description;
+            $biograpy->user_id =  Auth::id();
+            $biograpy->save();
 
-        return back()->with('message', 'Contenuto aggiunto');
+            return back()->with('message', 'Contenuto aggiunto');
+        } catch (Exception $e) {
+            return back()->with('message', 'Qualcosa è andato storto');
+        }
     }
 
     /**
@@ -47,7 +44,9 @@ class BiograpyController extends Controller
      */
     public function edit(Biograpy $biograpy)
     {
-        return Inertia::render('Biograpies/Edit', compact('biograpy'));
+        if ($biograpy->user_id == Auth::id()) {
+            return Inertia::render('Biograpies/Edit', compact('biograpy'));
+        }
     }
 
     /**
@@ -56,16 +55,19 @@ class BiograpyController extends Controller
     public function update(Request $request, Biograpy $biograpy)
     {
         try {
-
             if ($biograpy->user_id == Auth::id()) {
-                $biograpy->update([
-                    'description' => $request->description,
-                ]);
 
-                return to_route('biograpies.index');
+                if ($biograpy->user_id == Auth::id()) {
+                    $biograpy->update([
+                        'description' => $request->description,
+                    ]);
 
-             } else {
-                return abort(404);
+                    return to_route('biograpies.index')->with('message', 'Contenuto aggiornato');
+                    /* return Redirect::to('/biograpies')->with('message', 'Contenuto aggiornato'); */
+
+                 } else {
+                    return abort(404);
+                }
             }
         } catch (Exception $e) {
             return back()->with('message', 'Qualcosa è andato storto');
@@ -77,8 +79,14 @@ class BiograpyController extends Controller
      */
     public function destroy(Biograpy $biograpy)
     {
-        $biograpy->delete();
+        try {
+            if ($biograpy->user_id == Auth::id()) {
 
-        return back()->with('message', 'Contenuto eliminato');
+                $biograpy->delete();
+                return back()->with('message', 'Contenuto eliminato');
+            }
+        } catch (Exception $e) {
+            return back()->with('message', 'Qualcosa è andato storto');
+        }
     }
 }

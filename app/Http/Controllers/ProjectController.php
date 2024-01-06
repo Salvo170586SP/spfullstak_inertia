@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -18,41 +19,35 @@ class ProjectController extends Controller
         $projects = Project::paginate(5);
         return Inertia::render('Projects/Index', ['projects' => $projects, 'projects' => $projects->items(), 'pagination' => $projects->toArray()]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $project = new Project();
-        $project->user_id = Auth::id();
-        $project->project_title = $request->project_title;
-        $project->project_url = $request->project_url;
+        $request->validate([
+            'project_title' => 'required',
+        ], [
+            'project_title.required' => 'Il titolo è obbligatorio',
+        ]);
 
-        if (array_key_exists('project_img', $request->all())) {
-            $url_file = Storage::put('/project_imgs', $request['project_img']);
-            $project->project_img = $url_file;
+        try {
+            $project = new Project();
+            $project->user_id = Auth::id();
+            $project->project_title = $request->project_title;
+            $project->project_url = $request->project_url;
+
+            if (array_key_exists('project_img', $request->all())) {
+                $url_file = Storage::put('/project_imgs', $request['project_img']);
+                $project->project_img = $url_file;
+            }
+
+            $project->save();
+
+            return back()->with('message', 'Contenuto aggiunto');
+        } catch (Exception $e) {
+            return back()->with('message', 'Qualcosa è andato storto');
         }
-
-        $project->save();
-
-        return back()->with('message', 'Contenuto aggiunto');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Project $project)
-    {
-        
     }
 
     /**
@@ -60,7 +55,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return Inertia::render('Projects/Edit', compact('project'));
+        if ($project->user_id == Auth::id()) {
+            return Inertia::render('Projects/Edit', compact('project'));
+        }
     }
 
     /**
@@ -68,18 +65,31 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        if ($request->hasfile('project_img')) {
-            Storage::delete($project->project_img);
-
-            $url_file = Storage::put('/project_imgs', $request->file('project_img'));
-            $project->project_img = $url_file;
-        }
-        $project->update([
-            'project_title' => $request->project_title,
-            'project_url' => $request->project_url
+        $request->validate([
+            'project_title' => 'required',
+        ], [
+            'project_title.required' => 'Il titolo è obbligatorio',
         ]);
 
-        return to_route('projects.index');
+        try {
+            if ($project->user_id == Auth::id()) {
+
+                if ($request->hasfile('project_img')) {
+                    Storage::delete($project->project_img);
+
+                    $url_file = Storage::put('/project_imgs', $request->file('project_img'));
+                    $project->project_img = $url_file;
+                }
+                $project->update([
+                    'project_title' => $request->project_title,
+                    'project_url' => $request->project_url
+                ]);
+
+                return to_route('projects.index')->with('message', 'Contenuto aggiornato');
+            }
+        } catch (Exception $e) {
+            return back()->with('message', 'Qualcosa è andato storto');
+        }
     }
 
     /**
@@ -87,13 +97,20 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        
-        if ($project->project_img) {
-            Storage::delete($project->project_img);
+        try {
+
+            if ($project->user_id == Auth::id()) {
+
+                if ($project->project_img) {
+                    Storage::delete($project->project_img);
+                }
+
+                $project->delete();
+
+                return back()->with('message', 'Contenuto eliminato');
+            }
+        } catch (Exception $e) {
+            return back()->with('message', 'Qualcosa è andato storto');
         }
-
-        $project->delete();
-
-        return back()->with('message', 'Contenuto eliminato');
     }
 }
