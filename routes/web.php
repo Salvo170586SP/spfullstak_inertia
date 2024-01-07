@@ -10,6 +10,7 @@ use App\Models\Draw;
 use App\Models\File;
 use App\Models\Project;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -56,7 +57,6 @@ Route::get('/cv-page', function () {
     return Inertia::render('Guest/Cv', compact('files'));
 })->name('guest.cv');
 
-/* Route::get('/cv-page/download/{file}',[ FileController::class, 'downloadFile']); */
 
 Route::get(
     '/cv-page/download/{file}',
@@ -72,6 +72,10 @@ Route::get(
 
     }
 );
+
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
