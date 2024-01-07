@@ -15,8 +15,6 @@ export default function Edit({ auth, draw }) {
         draw_url: "",
     });
 
-
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setData({ ...data, [name]: value });
@@ -40,13 +38,13 @@ export default function Edit({ auth, draw }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         Disegni / Modifica
                     </h2>
                     <Link
                         href="/draws"
-                        className="bg-slate-600 text-white px-4 py-2 rounded hover:bg-slate-500"
+                        className="bg-slate-600 text-white px-4 py-3 rounded-3xl hover:bg-slate-500"
                     >
                         Torna indietro
                     </Link>
@@ -58,7 +56,10 @@ export default function Edit({ auth, draw }) {
             <div className="py-12 max-w-[500px] mx-auto ">
                 <div className="container mx-auto ">
                     <form
-                        onSubmit={(e) => {e.preventDefault(); handleEdit(draw.id)}}
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            handleEdit(draw.id);
+                        }}
                         className="dark:bg-gray-800 rounded-lg p-5"
                     >
                         <div id="fileUpload" className="w-full my-5">
@@ -68,6 +69,7 @@ export default function Edit({ auth, draw }) {
                             <FileInput
                                 id="file"
                                 name="draw_img"
+                                style={{ border: "0", borderRadius: "0" }}
                                 onChange={(e) =>
                                     setData("draw_img", e.target.files[0])
                                 }
@@ -80,16 +82,16 @@ export default function Edit({ auth, draw }) {
                             <TextInput
                                 id="titolo"
                                 type="text"
-                                 className="w-full"
+                                className="w-full"
                                 name="draw_title"
                                 onChange={handleInputChange}
                                 value={data.draw_title}
                                 ref={drawTitle}
                             />
-                             <InputError
-                                                message={errors.draw_title}
-                                                className="mt-2"
-                                            />
+                            <InputError
+                                message={errors.draw_title}
+                                className="mt-2"
+                            />
                         </div>
                         <div className="w-full my-5">
                             <div className="mb-2 block">
@@ -102,12 +104,11 @@ export default function Edit({ auth, draw }) {
                                 name="draw_url"
                                 onChange={handleInputChange}
                                 value={data.draw_url}
-                                
                             />
                         </div>
 
                         <div className="flex">
-                            <Button type="submit" className="mr-3">
+                            <Button type="submit" className="mr-3 rounded-3xl">
                                 modifica
                             </Button>
                         </div>

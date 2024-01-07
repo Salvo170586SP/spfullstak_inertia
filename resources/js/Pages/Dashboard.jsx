@@ -17,34 +17,34 @@ export default function Dashboard({ auth }) {
                 <div className="container max-w-7xl px-10 mx-auto flex flex-wrap gap-2">
                     <Link
                         href={`/biograpies`} 
-                        className="px-5 py-2 sm:px-6 lg:px-7 me-3 text-gray-900 rounded dark:text-gray-100 bg-slate-500 text-white"
+                        className="px-5 py-2 sm:px-6 lg:px-7 me-3 text-gray-900 rounded-3xl dark:text-gray-100 bg-slate-500 text-white"
                     >
                         Biografia
                     </Link>
                     <Link
                         href={`/draws`} 
-                        className="px-5 py-2 sm:px-6 lg:px-7 me-3 text-gray-900 rounded dark:text-gray-100 bg-slate-500 text-white"
+                        className="px-5 py-2 sm:px-6 lg:px-7 me-3 text-gray-900 rounded-3xl dark:text-gray-100 bg-slate-500 text-white"
                     >
                         Disegni
                     </Link>
                     <Link
                         href={`/projects`} 
-                        className="px-5 py-2 sm:px-6 lg:px-7 me-3 text-gray-900 rounded dark:text-gray-100 bg-slate-500 text-white"
+                        className="px-5 py-2 sm:px-6 lg:px-7 me-3 text-gray-900 rounded-3xl dark:text-gray-100 bg-slate-500 text-white"
                     >
                         Progetti
                     </Link>
                     <Link
                         href={`/files`} 
-                        className="px-5 py-2 sm:px-6  lg:px-7 text-gray-900 rounded dark:text-gray-100 bg-slate-500 text-white"
+                        className="px-5 py-2 sm:px-6  lg:px-7 text-gray-900 rounded-3xl dark:text-gray-100 bg-slate-500 text-white"
                     >
                         CV-File
                     </Link>
                 </div>
             </div>
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
+                    <div className="bg-white dark:bg-gray-800  overflow-hidden shadow-sm rounded-3xl ">
+                        <div className="p-6 text-gray-900  dark:text-gray-100">
                             BENTORNATO {auth.user.name.toUpperCase()}
                         </div>
                     </div>

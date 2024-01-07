@@ -30,13 +30,13 @@ export default function Edit({ auth, file }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         CV-File / Modifica
                     </h2>
                     <Link
-                        href="/draws"
-                        className="bg-slate-600 text-white px-4 py-2 rounded hover:bg-slate-500"
+                        href="/files"
+                        className="bg-slate-600 text-white px-4 py-3 rounded-3xl hover:bg-slate-500"
                     >
                         Torna indietro
                     </Link>
@@ -57,6 +57,7 @@ export default function Edit({ auth, file }) {
                             </div>
                             <FileInput
                                 id="file"
+                                style={{border: "0", borderRadius: "0"}}
                                 name="url_file"
                                 onChange={(e) =>
                                     setData("url_file", e.target.files[0])
@@ -79,7 +80,7 @@ export default function Edit({ auth, file }) {
                         </div>
 
                         <div className="flex">
-                            <Button type="submit" className="mr-3">
+                            <Button type="submit" className="mr-3 rounded-3xl">
                                 modifica
                             </Button>
                         </div>

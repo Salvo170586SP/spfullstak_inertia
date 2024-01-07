@@ -48,13 +48,13 @@ export default function Index({ auth, projects, pagination }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Disegni
+                        Progetti
                     </h2>
                     <Link
                         href="/dashboard"
-                        className="bg-slate-600 text-white px-4 py-2 rounded hover:bg-slate-500"
+                        className="bg-slate-600 text-white px-4 py-3 rounded-3xl hover:bg-slate-500"
                     >
                         Torna alla dashboard
                     </Link>
@@ -66,7 +66,10 @@ export default function Index({ auth, projects, pagination }) {
             <div className="py-12 max-w-7xl mx-auto ">
                 <div className="container mx-auto py-4">
                     <div className="flex">
-                        <Button onClick={() => setOpenModal(true)}>
+                        <Button
+                            onClick={() => setOpenModal(true)}
+                            className="rounded-3xl"
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -87,7 +90,7 @@ export default function Index({ auth, projects, pagination }) {
                             show={openModal}
                             onClose={() => setOpenModal(false)}
                         >
-                            <Modal.Header>Aggiungi disegno</Modal.Header>
+                            <Modal.Header>Aggiungi progetto</Modal.Header>
                             <Modal.Body>
                                 <div className="space-y-6">
                                     <form
@@ -107,6 +110,10 @@ export default function Index({ auth, projects, pagination }) {
                                             <FileInput
                                                 id="file"
                                                 name="draw_img"
+                                                style={{
+                                                    border: "0",
+                                                    borderRadius: "0",
+                                                }}
                                                 onChange={(e) =>
                                                     setData(
                                                         "project_img",
@@ -132,7 +139,7 @@ export default function Index({ auth, projects, pagination }) {
                                                 ref={projectTitle}
                                             />
                                             <InputError
-                                                message={errors.projectTitle}
+                                                message={errors.project_title}
                                                 className="mt-2"
                                             />
                                         </div>
@@ -149,13 +156,19 @@ export default function Index({ auth, projects, pagination }) {
                                                 type="text"
                                                 name="project_url"
                                                 onChange={handleChange}
-                                                value={data.project_url}
+                                                value={data.project_title}
                                             />
                                         </div>
 
                                         <Modal.Footer>
-                                            <Button type="submit">invia</Button>
                                             <Button
+                                                type="submit"
+                                                className="rounded-3xl"
+                                            >
+                                                invia
+                                            </Button>
+                                            <Button
+                                                className="rounded-3xl"
                                                 color="gray"
                                                 onClick={() =>
                                                     setOpenModal(false)
@@ -171,7 +184,7 @@ export default function Index({ auth, projects, pagination }) {
                     </div>
 
                     <div className="overflow-x-auto mt-5">
-                    <div className="h-[50px] w-full my-2">
+                        <div className="h-[50px] w-full my-2">
                             {flash.message && (
                                 <div className="text-white bg-slate-500 dark:bg-slate-600 w-full py-3 px-4 rounded-xl">
                                     {flash.message}
@@ -220,7 +233,7 @@ export default function Index({ auth, projects, pagination }) {
                                                     <Table.Cell>
                                                         <div className="flex justify-end">
                                                             <Link
-                                                                className="bg-blue-600 flex items-center mx-3 hover:bg-blue-500 rounded-lg px-4 py-2 text-white"
+                                                                className="bg-blue-600 flex items-center mx-3 hover:bg-blue-500 rounded-3xl px-4 py-2 text-white"
                                                                 href={`/projects/edit/${project.id}`}
                                                             >
                                                                 <svg
@@ -243,6 +256,7 @@ export default function Index({ auth, projects, pagination }) {
                                                             </Link>
                                                             <Button
                                                                 color="red"
+                                                                className="rounded-3xl"
                                                                 onClick={() =>
                                                                     openDelete(
                                                                         project.id
@@ -327,11 +341,12 @@ export default function Index({ auth, projects, pagination }) {
                                                                     <Button
                                                                         color="red"
                                                                         type="submit"
-                                                                        className="me-3"
+                                                                        className="me-3 rounded-3xl"
                                                                     >
                                                                         elimina
                                                                     </Button>
                                                                     <Button
+                                                                        className="rounded-3xl"
                                                                         onClick={() =>
                                                                             setOpenModalID(
                                                                                 false

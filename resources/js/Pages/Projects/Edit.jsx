@@ -13,8 +13,7 @@ export default function Edit({ auth, project }) {
         project_img: "",
         project_url: "",
     });
-    console.log(message);
-
+    console.log(errors.projectTitleEdit);
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setData({ ...data, [name]: value });
@@ -39,13 +38,13 @@ export default function Edit({ auth, project }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         Progetti / Modifica
                     </h2>
                     <Link
-                        href="/draws"
-                        className="bg-slate-600 text-white px-4 py-2 rounded hover:bg-slate-500"
+                        href="/projects"
+                        className="bg-slate-600 text-white px-4 py-3 rounded-3xl hover:bg-slate-500"
                     >
                         Torna indietro
                     </Link>
@@ -67,6 +66,10 @@ export default function Edit({ auth, project }) {
                             <FileInput
                                 id="file"
                                 name="project_img"
+                                style={{
+                                    border: "0",
+                                    borderRadius: "0",
+                                }}
                                 onChange={(e) =>
                                     setData("project_img", e.target.files[0])
                                 }
@@ -79,11 +82,15 @@ export default function Edit({ auth, project }) {
                             <TextInput
                                 id="titolo"
                                 type="text"
-                                required
                                 className="w-full"
                                 name="project_title"
                                 value={data.project_title}
                                 onChange={handleInputChange}
+                                ref={projectTitle}
+                            />
+                            <InputError
+                                message={errors.project_title}
+                                className="mt-2"
                             />
                         </div>
                         <div className="w-full my-5">
@@ -94,20 +101,14 @@ export default function Edit({ auth, project }) {
                                 className="w-full"
                                 id="url"
                                 type="text"
-                                required
                                 name="project_url"
                                 value={data.project_url}
                                 onChange={handleInputChange}
-                                ref={projectTitle}
-                            />
-                            <InputError
-                                message={errors.projectTitle}
-                                className="mt-2"
                             />
                         </div>
 
                         <div className="flex">
-                            <Button type="submit" className="mr-3">
+                            <Button type="submit" className="mr-3 rounded-3xl">
                                 modifica
                             </Button>
                         </div>

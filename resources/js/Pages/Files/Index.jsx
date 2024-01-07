@@ -41,13 +41,13 @@ export default function Index({ auth, files }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         CV-Files
                     </h2>
                     <Link
                         href="/dashboard"
-                        className="bg-slate-600 text-white px-4 py-2 rounded hover:bg-slate-500"
+                        className="bg-slate-600 text-white px-4 py-3 rounded-3xl hover:bg-slate-500"
                     >
                         Torna alla dashboard
                     </Link>
@@ -59,7 +59,7 @@ export default function Index({ auth, files }) {
             <div className="py-12 max-w-7xl mx-auto ">
                 <div className="container mx-auto py-4">
                     <div className="flex">
-                        <Button onClick={() => setOpenModal(true)}>
+                        <Button onClick={() => setOpenModal(true)} className="rounded-3xl">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -99,6 +99,7 @@ export default function Index({ auth, files }) {
                                             </div>
                                             <FileInput
                                                 id="file"
+                                                style={{border: "0", borderRadius: "0"}}
                                                 name="url_file"
                                                 onChange={(e) =>
                                                     setData(
@@ -127,12 +128,13 @@ export default function Index({ auth, files }) {
                                         </div>
 
                                         <Modal.Footer>
-                                            <Button type="submit">invia</Button>
+                                            <Button type="submit" className="rounded-3xl">invia</Button>
                                             <Button
                                                 color="gray"
                                                 onClick={() =>
                                                     setOpenModal(false)
                                                 }
+                                                className="rounded-3xl"
                                             >
                                                 annulla
                                             </Button>
@@ -185,7 +187,7 @@ export default function Index({ auth, files }) {
                                                 <Table.Cell>
                                                     <div className="flex justify-end">
                                                         <Link
-                                                            className="bg-blue-600 flex items-center mx-3 hover:bg-blue-500 rounded-lg px-4 py-2 text-white"
+                                                            className="bg-blue-600 flex items-center mx-3 hover:bg-blue-500 rounded-3xl px-4 py-2 text-white"
                                                             href={`/files/edit/${file.id}`}
                                                         >
                                                             <svg
@@ -207,6 +209,7 @@ export default function Index({ auth, files }) {
                                                             </span>
                                                         </Link>
                                                         <Button
+                                                        className="rounded-3xl"
                                                             color="red"
                                                             onClick={() =>
                                                                 openDelete(
@@ -290,11 +293,12 @@ export default function Index({ auth, files }) {
                                                                 <Button
                                                                     color="red"
                                                                     type="submit"
-                                                                    className="me-3"
+                                                                    className="me-3 rounded-3xl"
                                                                 >
                                                                     elimina
                                                                 </Button>
                                                                 <Button
+                                                                className="rounded-3xl"
                                                                     onClick={() =>
                                                                         setOpenModalID(
                                                                             false

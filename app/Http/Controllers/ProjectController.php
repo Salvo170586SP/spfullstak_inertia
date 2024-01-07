@@ -70,7 +70,7 @@ class ProjectController extends Controller
         ], [
             'project_title.required' => 'Il titolo è obbligatorio',
         ]);
-
+        
         try {
             if ($project->user_id == Auth::id()) {
 

@@ -35,13 +35,13 @@ export default function Index({ auth, biograpies }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         Biografia
                     </h2>
                     <Link
                         href="/dashboard"
-                        className="bg-slate-600 text-white px-4 py-2 rounded hover:bg-slate-500"
+                        className="bg-slate-600 text-white px-4 py-3 rounded-3xl hover:bg-slate-500"
                     >
                         Torna alla dashboard
                     </Link>
@@ -61,7 +61,7 @@ export default function Index({ auth, biograpies }) {
                             )}
                         </div>
                         {biograpies.length <= 0 ? (
-                            <Button onClick={() => setOpenModal(true)}>
+                            <Button onClick={() => setOpenModal(true)} className="rounded-3xl">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -139,7 +139,7 @@ export default function Index({ auth, biograpies }) {
                                                 <div className="flex justify-end">
                                                     <Link
                                                         href={`biograpies/edit/${biograpy.id}`}
-                                                        className="bg-blue-600 mx-3 flex items-center hover:bg-blue-500 rounded-lg px-4 py-2 text-white"
+                                                        className="bg-blue-600 mx-3  flex items-center hover:bg-blue-500 rounded-3xl px-4 py-2 text-white"
                                                     >
                                                         <svg
                                                             xmlns="http://www.w3.org/2000/svg"
@@ -161,6 +161,7 @@ export default function Index({ auth, biograpies }) {
                                                     </Link>
 
                                                     <Button
+                                                    className="rounded-3xl"
                                                         onClick={() =>
                                                             setOpenModalDelete(
                                                                 true
@@ -209,6 +210,7 @@ export default function Index({ auth, biograpies }) {
                                                                 <Modal.Footer>
                                                                     <Button
                                                                         color="red"
+                                                                        className="rounded-3xl"
                                                                         onClick={(
                                                                             e
                                                                         ) => {
@@ -221,6 +223,7 @@ export default function Index({ auth, biograpies }) {
                                                                         elimina
                                                                     </Button>
                                                                     <Button
+                                                                    className="rounded-3xl"
                                                                         color="gray"
                                                                         onClick={() =>
                                                                             setOpenModalDelete(

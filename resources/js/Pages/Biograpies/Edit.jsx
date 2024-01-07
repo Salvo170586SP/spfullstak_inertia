@@ -26,13 +26,13 @@ export default function Edit({ auth, biograpy }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         Biografia / Modifica
                     </h2>
                     <Link
                         href="/biograpies"
-                        className="bg-slate-600 text-white px-4 py-2 rounded hover:bg-slate-500"
+                        className="bg-slate-600 text-white px-4 py-3 rounded-3xl hover:bg-slate-500"
                     >
                         Torna indietro
                     </Link>
@@ -56,7 +56,7 @@ export default function Edit({ auth, biograpy }) {
                                 data={description}
                                 onChange={handleEditorChange}
                             />
-                            <Button type="submit" className="mt-3">
+                            <Button type="submit" className="mt-3 rounded-3xl">
                                 applica modifiche
                             </Button>
                         </form>
